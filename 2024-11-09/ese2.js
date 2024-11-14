@@ -16,7 +16,7 @@ in caso di perdita dovrà essere mostrato il messaggio "Mi dispiace, hai perso!"
 */
 
 
-
+/*
 //numeri casuali miei
 let numeri_casuali = [];
     
@@ -99,61 +99,122 @@ switch (numeri_uguali.length) {
     
     console.log(`i numeri uguali sono ${numeri_uguali}`);
     
+*/
+//=============================================================================================================================//   
+// esrcizio rifatto a lezione
+       
 
-   
-   
-    
+function estrazioni() { /* se non volessimo limitarci con i 10 numeri estratti 
+    basta mettere un parametro e poi quando richiamiamo la funzione dirgli quanto vale*/
 
+    let numeri = [];
 
+    while (numeri.length < 10) {
 
+        // generiamo un numero casuale intero compreso tra 1 e 90
+
+        let numero = Math.floor((Math.random() * 90) ) + 1;
+
+        // adesso popoliamo l'array numeri, pero in questo caso bisogna controllare che 
+        // il numero generato non sia gia presente nell'array
+
+        if (!numeri.includes(numero)) { // col ! messo davanti si inverte la condizione
+            // in questo caso gli diciamo se numero non e incluso nell'array allora pusha il numero
+            // se non avessimo messo il punto esclamativo pushava se era presente nell'array
+            numeri.push(numero);
+        }
+    }   
+
+    return numeri;
+
+}
+/*
+let estratti = estrazioni();
+
+console.log(estratti);
+*/
+
+// funzione che permette all'utente di inserire i suoi numeri
+
+function numeri_utente() {
+    let numeri_scelti = [];
+
+    while ( numeri_scelti.length < 10) {
+
+        let num = parseInt( prompt("Inserisci un numero a tua scelta tra 1 e 90"));
+
+        if ( num >= 1 && num <= 90 && !numeri_scelti.includes(num)) {
+            numeri_scelti.push(num);
+        }else {
+            alert("Numero non valido o gia inserito")
+        }
+    }
+    return numeri_scelti
+}
 
 /*
-// Genera un array di 10 numeri casuali unici tra 1 e 90
-const arrayCasuale = [];
-while (arrayCasuale.length < 10) {
-    const numero = Math.floor(Math.random() * 90) + 1;
-    if (!arrayCasuale.includes(numero)) {
-        arrayCasuale.push(numero);
-    }
-}
-console.log("Numeri casuali:", arrayCasuale);
+let numeri_scelti_utente = numeri_utente();
 
-// Richiedi all'utente di inserire 10 numeri
-const numeriUtente = [];
-console.log("Inserisci 10 numeri (tra 1 e 90):");
-while (numeriUtente.length < 10) {
-    const numero = parseInt(prompt(`Inserisci il numero ${numeriUtente.length + 1}:`), 10);
-    if (numero >= 1 && numero <= 90 && !numeriUtente.includes(numero)) {
-        numeriUtente.push(numero);
-    } else {
-        alert("Numero non valido o già inserito. Riprova.");
-    }
-}
-
-// Calcola quanti numeri dell'utente sono presenti nell'array casuale
-let conteggio = 0;
-
-numeriUtente.forEach(function(numero) {
-    if (arrayCasuale.includes(numero)) {
-        conteggio++;
-    }
-});
-
-// Determina il risultato
-if (conteggio === 0) {
-    console.log("Mi dispiace, hai perso!");
-} else if (conteggio === 2) {
-    console.log("2 numeri uguali => ambo");
-} else if (conteggio === 3) {
-    console.log("3 numeri uguali => terna");
-} else if (conteggio === 4) {
-    console.log("4 numeri uguali => quaterna");
-} else if (conteggio === 5) {
-    console.log("5 numeri uguali => cinquina");
-} else if (conteggio === 10) {
-    console.log("Hai fatto tombola!");
-} else {
-    console.log(`${conteggio} numeri uguali`);
-}
-
+console.log(numeri_scelti_utente);
 */
+
+// FUNZIONE DI VERIFICA NUMERI
+
+function verifica_numeri(numeri_estratti, num_utente) {
+
+    let cont = 0;
+
+    num_utente.forEach( numero => {
+//if, con l'aiuto di icludes() controllera che ogni numero scelto dall'utente e presente
+//nell'array dei numeri casuali generati, se includes restituisce true, la variabile cont
+//viene incrementata di 1, quindi cont, alla fine di tutto il ciclo rappresentera quanti
+//numeri l'utente ha indovinato
+        if (numeri_estratti.includes(numero)) {
+            cont++;
+        }
+    }
+);
+return cont;
+
+}
+
+let numeri_casuali = estrazioni();
+
+console.log("numeri casuali estratti:",numeri_casuali);
+
+let scelti_utenti = numeri_utente();
+
+console.log("Riepilogo numeri scelti dall'utente:",scelti_utenti);
+
+let numeri_indovinati = verifica_numeri(numeri_casuali,scelti_utenti)
+
+//console.log(numeri_indovinati);
+
+
+switch (numeri_indovinati) {
+    
+    case 10:
+        console.log(`Hai fatto Tombola`);
+        break;
+        
+    case 5:
+        console.log(`Hai fatto Cinquina`);
+        break;    
+        
+    case 4:
+        console.log(`Hai fatto Quaterna`);
+        break;
+        
+    case 3:
+        console.log(`Hai fatto Terna`);
+        break;
+
+    case 2:
+        console.log(`Hai fatto Ambo`);
+        break;
+
+    default:
+        console.log("Mi dispiace, hai perso!");
+        break;
+    
+    }
