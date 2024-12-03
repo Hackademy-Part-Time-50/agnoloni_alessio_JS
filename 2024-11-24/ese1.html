@@ -4,11 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <!-- esercizio fatto a lezione -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let display = document.querySelector('#display');
+
+            let bottoni = document.querySelectorAll('button');
+
+            let valore_display = '';
+
+
+            bottoni.forEach( bottone => {
+
+                bottone.addEventListener('click', () => {
+
+                    let valore = bottone.innerText;
+
+                    if(valore == 'C') {
+
+                        valore_display = '';
+
+                    }else if(valore == '=') {
+
+                        valore_display = eval(valore_display);
+                    }else {
+                        valore_display += valore;      
+                    }
+
+                    display.value = valore_display;
+
+                })
+
+            })
+
+
+        })
+
+    </script>
 </head>
 <body>
     
     <div>
-        <input type="text" id="display">
+        <input type="text" id="display" readonly>
         </div>
         <table>
         <tr>
@@ -40,6 +78,6 @@
 
 
 
-    <script src="./ese1.js"></script>
+    <!-- <script src="./ese1.js"></script> -->
 </body>
 </html>

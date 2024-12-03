@@ -1,3 +1,4 @@
+/*
 let display = document.querySelector('#display');
 let currentInput = '';
 let previousInput = '';
@@ -97,3 +98,5 @@ function calculate(a, b, operator) {
             return 0;
     }
 };
+
+*/
